@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="대학생을 위한 칸트 철학 입문 미연시 게임" />
+  <title>KANT AFTER CLASS — Expanded</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main id="app">
+
+    <!-- START -->
+    <section id="startScreen" class="screen start-screen">
+      <div class="start-card">
+        <div class="eyebrow">PHILOSOPHY × VISUAL NOVEL</div>
+        <h1>KANT<br><span>AFTER CLASS</span></h1>
+        <p class="lead">
+          철학개론 수업이 끝난 뒤, 낯선 쾨니히스베르크에서 칸트를 만났다.<br>
+          이번 학기 목표는 하나. <b>칸트와 친해지고, 칸트도 이해하기.</b>
+        </p>
+
+        <div class="feature-row">
+          <span>♥ 호감도</span>
+          <span>📖 이해도</span>
+          <span>✨ 관계 이벤트</span>
+          <span>🎓 개념 퀴즈</span>
+          <span>🌙 멀티 엔딩</span>
+        </div>
+
+        <label class="name-label" for="playerName">플레이어 이름</label>
+        <input id="playerName" maxlength="12" placeholder="예: 철학개론 새내기" />
+
+        <button id="startBtn" class="primary-btn">수업 끝나고 칸트를 따라간다</button>
+
+        <div class="start-tips">
+          <b>이번 확장판에서는</b>
+          <span>칸트 표정 변화</span>
+          <span>대학생 NPC ‘유나’</span>
+          <span>선택지 기반 특별 이벤트</span>
+          <span>배드 / 노멀 / 트루 엔딩</span>
+        </div>
+
+        <p class="notice">
+          교육용 창작물입니다. 게임 속 대사와 사건은 창작이며 실제 칸트의 발언을 인용한 것이 아닙니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- GAME -->
+    <section id="gameScreen" class="screen game-screen hidden">
+      <header class="topbar">
+        <div>
+          <div class="logo">KANT AFTER CLASS</div>
+          <div class="subtitle">Expanded Edition · 쾨니히스베르크의 오후</div>
+        </div>
+
+        <div class="top-stats">
+          <div class="stat-pill">DAY <b id="dayTop">1</b>/7</div>
+          <div class="stat-pill">♥ <b id="affectionTop">0</b></div>
+          <div class="stat-pill">📖 <b id="understandingTop">0</b></div>
+          <div class="stat-pill">✦ <b id="bondTop">0</b></div>
+        </div>
+      </header>
+
+      <div class="game-layout">
+        <section class="novel-panel">
+          <div id="scene" class="scene scene-cafe">
+            <div class="scene-layer scene-sky"></div>
+            <div class="window"></div>
+            <div class="bookshelf"><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="desk"></div>
+            <div class="campus-lamp"></div>
+
+            <!-- Kant -->
+            <div id="kantCharacter" class="character kant expression-neutral">
+              <div class="hair hair-back"></div>
+              <div class="body"></div>
+              <div class="shirt"></div>
+              <div class="neck"></div>
+              <div class="head"></div>
+              <div class="hair hair-front"></div>
+              <div class="brow brow-left"></div>
+              <div class="brow brow-right"></div>
+              <div class="eye eye-left"></div>
+              <div class="eye eye-right"></div>
+              <div class="nose"></div>
+              <div class="mouth"></div>
+              <div class="blush blush-left"></div>
+              <div class="blush blush-right"></div>
+              <div class="cravat"></div>
+              <div class="speech-symbol"></div>
+            </div>
+
+            <!-- Yuna -->
+            <div id="yunaCharacter" class="character yuna hidden expression-neutral">
+              <div class="y-hair y-hair-back"></div>
+              <div class="y-body"></div>
+              <div class="y-shirt"></div>
+              <div class="y-neck"></div>
+              <div class="y-head"></div>
+              <div class="y-hair y-hair-front"></div>
+              <div class="y-eye y-eye-left"></div>
+              <div class="y-eye y-eye-right"></div>
+              <div class="y-mouth"></div>
+            </div>
+
+            <div class="location-badge" id="locationBadge">쾨니히스베르크 · 카페</div>
+            <div class="chapter-badge" id="chapterBadge">CHAPTER 1</div>
+            <div id="eventBadge" class="event-badge hidden">SPECIAL EVENT</div>
+          </div>
+
+          <div class="dialogue-box">
+            <div class="speaker-row">
+              <span id="speakerName" class="speaker">칸트</span>
+              <span id="sceneHint" class="scene-hint">첫 만남</span>
+            </div>
+            <p id="dialogueText" class="dialogue-text"></p>
+            <div id="choices" class="choices"></div>
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <section class="side-card">
+            <h2>현재 관계</h2>
+
+            <div class="meter">
+              <div class="meter-head"><span>♥ 칸트 호감도</span><b id="affectionValue">0</b></div>
+              <div class="meter-track"><div id="affectionBar" class="meter-fill affection"></div></div>
+            </div>
+
+            <div class="meter">
+              <div class="meter-head"><span>📖 철학 이해도</span><b id="understandingValue">0</b></div>
+              <div class="meter-track"><div id="understandingBar" class="meter-fill understanding"></div></div>
+            </div>
+
+            <div class="meter">
+              <div class="meter-head"><span>✦ 관계 깊이</span><b id="bondValue">0</b></div>
+              <div class="meter-track"><div id="bondBar" class="meter-fill bond"></div></div>
+            </div>
+          </section>
+
+          <section class="side-card">
+            <h2>챕터</h2>
+            <div id="chapterList" class="chapter-list"></div>
+          </section>
+
+          <section class="side-card">
+            <div class="side-title-row">
+              <h2>개념 노트</h2>
+              <span id="noteCount" class="tiny-badge">0/7</span>
+            </div>
+            <div id="glossary" class="glossary">
+              <p class="empty-note">대화를 진행하면 개념 카드가 열립니다.</p>
+            </div>
+          </section>
+
+          <section class="side-card">
+            <h2>획득 이벤트</h2>
+            <div id="eventList" class="event-list">
+              <p class="empty-note">특별한 선택을 하면 이벤트가 기록됩니다.</p>
+            </div>
+          </section>
+
+          <div class="side-actions">
+            <button id="saveBtn" class="ghost-btn">저장</button>
+            <button id="resetBtn" class="ghost-btn danger">처음부터</button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ENDING -->
+    <section id="endingScreen" class="screen ending-screen hidden">
+      <div class="ending-card">
+        <div class="eyebrow">ENDING</div>
+        <div id="endingIcon" class="ending-icon">🌙</div>
+        <h2 id="endingTitle"></h2>
+        <p id="endingText" class="ending-text"></p>
+
+        <div class="ending-score-grid">
+          <div><span>♥ 호감도</span><b id="endingAffection">0</b></div>
+          <div><span>📖 이해도</span><b id="endingUnderstanding">0</b></div>
+          <div><span>✦ 관계 깊이</span><b id="endingBond">0</b></div>
+        </div>
+
+        <section class="review-box">
+          <h3>이번 루트에서 배운 칸트</h3>
+          <div id="endingConcepts" class="ending-concepts"></div>
+        </section>
+
+        <section class="review-box">
+          <h3>해금한 이벤트</h3>
+          <div id="endingEvents" class="ending-concepts"></div>
+        </section>
+
+        <button id="restartBtn" class="primary-btn">다시 플레이</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- CONCEPT MODAL -->
+  <div id="conceptModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal-eyebrow">PHILOSOPHY CHECK</div>
+      <h2 id="modalTitle"></h2>
+      <p id="modalFeedback"></p>
+
+      <div class="concept-card">
+        <div id="modalConceptName" class="concept-name"></div>
+        <p id="modalConceptText"></p>
+      </div>
+
+      <div id="miniQuiz" class="mini-quiz hidden">
+        <div class="quiz-label">30초 복습</div>
+        <p id="quizQuestion"></p>
+        <div id="quizChoices" class="quiz-choices"></div>
+        <p id="quizResult" class="quiz-result"></p>
+      </div>
+
+      <button id="modalNextBtn" class="primary-btn modal-next">다음으로</button>
+    </div>
+  </div>
+
+  <!-- SPECIAL EVENT MODAL -->
+  <div id="eventModal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal event-modal">
+      <div class="modal-eyebrow">SPECIAL EVENT</div>
+      <div id="eventEmoji" class="event-emoji">☕</div>
+      <h2 id="eventTitle"></h2>
+      <p id="eventText"></p>
+      <button id="eventCloseBtn" class="primary-btn modal-next">계속하기</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden">저장되었습니다.</div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
